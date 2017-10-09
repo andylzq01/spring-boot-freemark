@@ -48,4 +48,10 @@ public class HttpClientUtil {
         }
         return entityStringBuilder.toString();
     }
+
+    public  static  void  main(String[] args){
+        String url = "http://st.blf1.belle.net.cn/bf-purchase-web/bas_division/findVOAll.json";
+       String result =  HttpClientUtil.requestByGetMethod(url);
+       System.out.println(result);
+    }
 }  
