@@ -6,6 +6,11 @@ import com.wooyoo.learning.dao.domain.TbUser;
 import com.wooyoo.learning.dao.mapper.ProductMapper;
 import com.wooyoo.learning.service.HelloRemoteApi;
 import com.wooyoo.learning.service.TbUserService;
+import org.apache.solr.client.solrj.impl.CloudSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.common.params.ModifiableSolrParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,8 @@ public class ProductController {
     private TbUserService tbUserService;
     @Autowired
     private HelloRemoteApi helloRemoteApi;
+    @Autowired
+    private CloudSolrServer solrserver;
 
 //    @GetMapping("/{id}")
 //    public String  getProductInfo(
@@ -60,8 +67,8 @@ public class ProductController {
 
         ModelAndView mv = new ModelAndView("index");
         logger.info("请求-----------------------index,远程调用------");
-       Integer result =  helloRemoteApi.add(2,5);
-        logger.info("请求-----------------------index,响应结果------"+result);
+        Integer result = helloRemoteApi.add(2, 5);
+        logger.info("请求-----------------------index,响应结果------" + result);
         return mv;
 
     }
@@ -70,8 +77,30 @@ public class ProductController {
     public String toindex(Model model) {
         logger.info("请求-----------------------index1111");
         TbUser tbUser = tbUserService.selectByPrimaryKey(10L);
-        model.addAttribute("tbUser",tbUser);
+        model.addAttribute("tbUser", tbUser);
         return "user";
 
+    }
+
+    @RequestMapping("/test")
+    public void test() {
+        ModifiableSolrParams params = new ModifiableSolrParams();
+        params.add("q", "demo:父亲");
+        params.add("ws", "json");
+        params.add("start", "0");
+        params.add("rows", "10");
+        QueryResponse response = null;
+
+        try {
+            response = solrserver.query(params);
+            SolrDocumentList results = response.getResults();
+            for (SolrDocument document : results) {
+                System.out.println(document.getFieldValue("demo"));
+                System.out.println(document.getFieldValue("id"));
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        System.out.println(response.toString());
     }
 }

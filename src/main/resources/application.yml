@@ -50,6 +50,12 @@ spring:
       template-loader-path:
         classpath: /templates/
 
+  #solr
+  solr:
+      host: http://127.0.0.1:8983/solr
+      zkHost: 127.0.0.1:2181,192.168.219.140:2181
+      solr.defaultCollection: demo
+
 resources:
   static-locations: classpath:/static/
 
