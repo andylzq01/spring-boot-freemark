@@ -6,7 +6,8 @@ logging:
      root: INFO
      org.springframework.web: DEBUG
      com.wooyoo.learning: DEBUG
-  file: classpath:/logs/springboot.log
+     classpath: /logs/springboot.log
+  config: classpath:logback-boot.xml
 
 spring:
   application:

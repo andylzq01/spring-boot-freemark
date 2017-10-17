@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <contextName>logback</contextName>
+    <property name="log.path" value="d:\\logs\\springboot.log" />
+    <!-- base.xml in the spring-boot jar, -->
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <!--输出到文件
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logback.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>-->
+
+    <!-- <root level="info">
+        <appender-ref ref="console" />
+        <appender-ref ref="file" />
+    </root>-->
+
+   <loger name="com.wooyoo.learning" level="DEBUG,INFO,ERROR">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </loger>
+
+    <!-- 输出hibernate的sql，会同时记录在文件日志中去，所以使用：spring.jpa.show-sql 配置比较好 -->
+    <!--<logger name="org.hibernate.SQL" level="DEBUG" />-->
+</configuration>
