@@ -6,8 +6,10 @@ logging:
      root: INFO
      org.springframework.web: DEBUG
      com.wooyoo.learning: DEBUG
-     classpath: /logs/springboot.log
-  config: classpath:logback-boot.xml
+  #config: classpath:logback-string.xml
+  #path: F:\\demo
+  file: F:\\demo\\demo.log
+  #path: classpath:/logs/
 
 spring:
   application:
@@ -77,4 +79,4 @@ eureka:
     #leaseExpirationDurationInSeconds: 5  #服务失效时间  默认90s
 feign:
   hystrix:
-    enabled: false
+    enabled: true
