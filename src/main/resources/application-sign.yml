@@ -1,0 +1,83 @@
+server:
+  port: 8081
+  #context-path: /spring-boot
+logging:
+  level:
+     root: INFO
+     org.springframework.web: DEBUG
+     com.wooyoo.learning: DEBUG
+  #config: classpath:logback-string.xml
+  #path: F:\\demo
+  file: F:\\demo\\demo.log
+  #path: classpath:/logs/
+
+spring:
+  application:
+    name: spring-boot-freemark
+  # 数据库配置
+  datasource:
+    url: jdbc:mysql://localhost/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  redis:
+    # redis数据库索引（默认为0），我们使用索引为3的数据库，避免和其他数据库冲突
+    database: 3
+    # redis服务器地址（默认为localhost）
+    host: localhost
+    # redis端口（默认为6379）
+    port: 6379
+    # redis访问密码（默认为空）
+    password:
+    # redis连接超时时间（单位为毫秒）
+    timeout: 0
+    # redis连接池配置
+    pool:
+      # 最大可用连接数（默认为8，负数表示无限）
+      max-active: 8
+      # 最大空闲连接数（默认为8，负数表示无限）
+      max-idle: 8
+      # 最小空闲连接数（默认为0，该值只有为正数才有作用）
+      min-idle: 0
+      # 从连接池中获取连接最大等待时间（默认为-1，单位为毫秒，负数表示无限）
+      max-wait: -1
+
+  #freemark
+  freemarker:
+      charset: UTF-8
+      enabled: true
+      settings:
+        #springboot默认将freemarker的数字用,分割了。取消方法
+        number_format: 0.##
+        template_update_delay: 0
+      template-loader-path:
+        classpath: /templates/
+
+  #solr
+  solr:
+      host: http://127.0.0.1:8983/solr
+      zkHost: 127.0.0.1:2181,192.168.219.140:2181
+      solr.defaultCollection: demo
+
+resources:
+  static-locations: classpath:/static/
+
+# mybatis配置
+mybatis:
+  # 配置映射类所在包名
+  type-aliases-package: com.wooyoo.learning.dao.domain
+  # 配置mapper xml文件所在路径，这里是一个数组
+  mapper-locations: mappers/*Mapper.xml
+  #config-location: classpath:/mybatis-config.xml
+
+eureka:
+  client:
+    serviceUrl:
+       defaultZone: http://localhost:10081/eureka/   # 指定注册中心的地址(必须先启动注册中心)
+  instance:
+    preferIpAddress: true
+    #leaseRenewalIntervalInSeconds: 2 #Renew操作间隔  默认为30s
+    #leaseExpirationDurationInSeconds: 5  #服务失效时间  默认90s
+feign:
+  hystrix:
+    enabled: true

@@ -1,10 +1,15 @@
 package com.wooyoo.learning.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wooyoo.learning.common.WeatherResponse;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -49,9 +54,20 @@ public class HttpClientUtil {
         return entityStringBuilder.toString();
     }
 
-    public  static  void  main(String[] args){
-        String url = "http://st.blf1.belle.net.cn/bf-purchase-web/bas_division/findVOAll.json";
-       String result =  HttpClientUtil.requestByGetMethod(url);
-       System.out.println(result);
+    public static void main(String[] args) {
+        String url = "http://wthrcdn.etouch.cn/weather_mini?city=深圳";
+        String result = HttpClientUtil.requestByGetMethod(url);
+//        ResponseEntity responseEntity =  restTemplate.getForEntity(url,String.class);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        WeatherResponse weather = null;
+//
+//        try {
+//            weather = mapper.readValue(result, WeatherResponse.class);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+        System.out.println(result);
     }
 }  

@@ -6,20 +6,72 @@ logging:
      root: INFO
      org.springframework.web: DEBUG
      com.wooyoo.learning: DEBUG
-  #config: classpath:logback-string.xml
-  #path: F:\\demo
   file: F:\\demo\\demo.log
-  #path: classpath:/logs/
 
-spring:
-  application:
-    name: spring-boot-freemark
-  # 数据库配置
+
+mysql:
   datasource:
-    url: jdbc:mysql://localhost/test?useUnicode=true&characterEncoding=utf-8&useSSL=false
-    username: root
-    password: root
-    driver-class-name: com.mysql.jdbc.Driver
+      readSize: 2  #读库个数
+      type: com.alibaba.druid.pool.DruidDataSource
+      mapperLocations: classpath:/mappers/*Mapper.xml
+      configLocation: classpath:/mybatis-config.xml
+      write:
+         url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;characterEncoding=utf-8
+         username: root
+         password: root
+         driver-class-name: com.mysql.jdbc.Driver
+         minIdle: 5
+         maxActive: 100
+         initialSize: 10
+         maxWait: 60000
+         timeBetweenEvictionRunsMillis: 60000
+         minEvictableIdleTimeMillis: 300000
+         validationQuery: select 'x'
+         testWhileIdle: true
+         testOnBorrow: false
+         testOnReturn: false
+         poolPreparedStatements: true
+         maxPoolPreparedStatementPerConnectionSize: 50
+         removeAbandoned: true
+         filters: stat
+      read01:
+         url: jdbc:mysql://127.0.0.1:3306/test_01?useUnicode=true&amp;characterEncoding=utf-8
+         username: root
+         password: root
+         driver-class-name: com.mysql.jdbc.Driver
+         minIdle: 5
+         maxActive: 100
+         initialSize: 10
+         maxWait: 60000
+         timeBetweenEvictionRunsMillis: 60000
+         minEvictableIdleTimeMillis: 300000
+         validationQuery: select 'x'
+         testWhileIdle: true
+         testOnBorrow: false
+         testOnReturn: false
+         poolPreparedStatements: true
+         maxPoolPreparedStatementPerConnectionSize: 50
+         removeAbandoned: true
+         filters: stat
+      read02:
+         url: jdbc:mysql://127.0.0.1:3306/test_02?useUnicode=true&amp;characterEncoding=utf-8
+         username: root
+         password: root
+         driver-class-name: com.mysql.jdbc.Driver
+         minIdle: 5
+         maxActive: 100
+         initialSize: 10
+         maxWait: 60000
+         timeBetweenEvictionRunsMillis: 60000
+         minEvictableIdleTimeMillis: 300000
+         validationQuery: select 'x'
+         testWhileIdle: true
+         testOnBorrow: false
+         testOnReturn: false
+         poolPreparedStatements: true
+         maxPoolPreparedStatementPerConnectionSize: 50
+         removeAbandoned: true
+         filters: stat
   redis:
     # redis数据库索引（默认为0），我们使用索引为3的数据库，避免和其他数据库冲突
     database: 3
@@ -68,6 +120,7 @@ mybatis:
   type-aliases-package: com.wooyoo.learning.dao.domain
   # 配置mapper xml文件所在路径，这里是一个数组
   mapper-locations: mappers/*Mapper.xml
+  config-location: classpath:/mybatis-config.xml
 
 eureka:
   client:

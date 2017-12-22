@@ -59,8 +59,11 @@ public class UserController {
     @ResponseBody
     public String addUser(@PathVariable("number") String number, @PathVariable("name") String name) {
         TbUser user = new TbUser();
-       // user.setNumber(number);
+        user.setUpdated(new Date());
+        user.setUsername(name);
+        user.setPhone(number);
         user.setCreated(new Date());
+        user.setEmail("xxxx@qq.com");
         return String.valueOf(userService.addUser(user));
     }
 

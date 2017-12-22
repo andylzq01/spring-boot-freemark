@@ -2,6 +2,7 @@ package com.wooyoo.learning.config.shiroCas;
 
 import com.wooyoo.learning.dao.domain.TbUser;
 import com.wooyoo.learning.dao.mapper.TbUserMapper;
+import com.wooyoo.learning.service.TbUserService;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.cas.CasRealm;
@@ -23,7 +24,7 @@ public class MyShiroCasRealm extends CasRealm{
     private static final Logger logger = LoggerFactory.getLogger(MyShiroCasRealm.class);
 
     @Autowired
-    private TbUserMapper userDao;
+    private TbUserService userService;
 
     @PostConstruct
     public void initProperty(){
@@ -64,7 +65,7 @@ public class MyShiroCasRealm extends CasRealm{
         String loginName = (String)super.getAvailablePrincipal(principalCollection);
 
         //到数据库查是否有此对象(1.本地查询 2.可以远程查询casserver 3.可以由casserver带过来角色／权限其它信息)
-        TbUser user=userDao.selectByName(loginName);// 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
+        TbUser user=userService.selectByName(loginName);// 实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         if(user!=null){
             //权限信息对象info,用来存放查出的用户的所有的角色（role）及权限（permission）
             SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
