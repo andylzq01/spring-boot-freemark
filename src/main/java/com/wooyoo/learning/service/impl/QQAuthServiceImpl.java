@@ -1,7 +1,6 @@
 package com.wooyoo.learning.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.wooyoo.learning.service.DefaultAuthServiceImpl;
 import com.wooyoo.learning.service.QQAuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

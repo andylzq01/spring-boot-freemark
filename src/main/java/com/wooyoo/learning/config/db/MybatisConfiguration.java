@@ -42,7 +42,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * ${date}     	laizeqi
  */
 @Configuration
-@AutoConfigureAfter(DataSourceAutoConfiguration.class)
+@AutoConfigureAfter(DataSourceConfiguration.class)
 public class MybatisConfiguration {
     private static Logger log = LoggerFactory.getLogger(MybatisConfiguration.class);
 

@@ -1,5 +1,6 @@
-package com.wooyoo.learning.service;
+package com.wooyoo.learning.service.impl;
 
+import com.wooyoo.learning.service.AuthService;
 import jdk.nashorn.internal.runtime.Source;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -15,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
-public abstract class DefaultAuthServiceImpl implements AuthService{
+public abstract class DefaultAuthServiceImpl implements AuthService {
     public static RestTemplate getRestTemplate() {// 手动添加
         SimpleClientHttpRequestFactory requestFactory=new SimpleClientHttpRequestFactory();
         requestFactory.setReadTimeout(120000);

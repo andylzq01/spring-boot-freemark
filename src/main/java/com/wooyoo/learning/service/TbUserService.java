@@ -8,30 +8,14 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("tbUserService")
-public class TbUserService {
+public interface TbUserService {
 
-    @Autowired
-    private TbUserMapper tbUserMapper;
 
-    @ReadDataSource
-    public TbUser selectByPrimaryKey(Long id){
-        return tbUserMapper.selectByPrimaryKey(id);
-    }
+    public TbUser selectByPrimaryKey(Long id);
 
-    @WriteDataSource
-    public int addUser(TbUser user){
-        return  tbUserMapper.insert(user);
-    }
-    @ReadDataSource
-    public TbUser selectByName(String userName){
-        return tbUserMapper.selectByName(userName);
-    }
+    public int addUser(TbUser user);
 
-    @ReadDataSource
-    public TbUser getLoginUser() {
-        String number = SecurityUtils.getSubject().getPrincipal().toString();
-        System.out.println("login user is:"+ number);
-        return  this.tbUserMapper.selectByName(number);
-    }
+    public TbUser selectByName(String userName);
+
+    public TbUser getLoginUser();
 }
