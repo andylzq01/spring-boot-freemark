@@ -115,6 +115,7 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
+
   <!-- 根据名称查数据 -->
   <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select

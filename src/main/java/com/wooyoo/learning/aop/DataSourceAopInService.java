@@ -2,8 +2,11 @@ package com.wooyoo.learning.aop;
 
 import com.wooyoo.learning.config.db.DataSourceContextHolder;
 import com.wooyoo.learning.config.db.DataSourceType;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.core.PriorityOrdered;
 import org.springframework.stereotype.Component;
@@ -27,16 +30,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class DataSourceAopInService implements PriorityOrdered {
 
-    @Before("execution(* com.wooyoo.learning.service..*.*(..)) && @annotation(com.wooyoo.learning.annotation.ReadDataSource)")
-    public void setReadDataSourceType(){
+    @Pointcut("execution(* com.wooyoo.learning.service.impl.*.*(..)) && @annotation(com.wooyoo.learning.annotation.ReadDataSource)")
+    public void readDataSourceAspect(){
+
+    }
+
+    @Pointcut("execution(* com.wooyoo.learning.service.impl.*.*(..)) && @annotation(com.wooyoo.learning.annotation.WriteDataSource)")
+    public void writeDataSourceAspect(){
+
+    }
+
+    @Before("readDataSourceAspect()")
+    public void setReadDataSourceType(JoinPoint joinPoint){
         //如果已经开启写事务了，那之后的所有读都从写库读
         if(!DataSourceType.write.getType().equals(DataSourceContextHolder.readOrWrite())){
             DataSourceContextHolder.setRead();
         }
     }
 
-    @Before("execution(* com.wooyoo.learning.service..*.*(..)) && @annotation(com.wooyoo.learning.annotation.WriteDataSource)")
-    public void setWriteDataSourceType(){
+    @Before("writeDataSourceAspect()")
+    public void setWriteDataSourceType(JoinPoint joinPoint){
         DataSourceContextHolder.setWrite();
     }
 

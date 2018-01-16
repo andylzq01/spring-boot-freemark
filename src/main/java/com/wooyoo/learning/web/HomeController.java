@@ -1,6 +1,7 @@
 package com.wooyoo.learning.web;
 
 import com.alibaba.fastjson.JSONObject;
+import com.wooyoo.learning.annotation.ReadDataSource;
 import com.wooyoo.learning.dao.domain.TbUser;
 import com.wooyoo.learning.service.TbUserService;
 import org.apache.shiro.SecurityUtils;
@@ -23,6 +24,7 @@ public class HomeController {
     TbUserService userService;
 
     @RequestMapping("")
+    @ReadDataSource
     public String index(HttpSession session, ModelMap map, HttpServletRequest request){
 //        User user = (User) session.getAttribute("user");
 
